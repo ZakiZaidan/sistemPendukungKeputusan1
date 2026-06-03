@@ -1102,7 +1102,7 @@ def page_perhitungan():
             return f'background-color: rgba({r},{g},{b},0.35); color: #fff'
 
         st.dataframe(
-            df_norm.style.format("{:.4f}").applymap(color_rygr),
+            df_norm.style.format("{:.4f}").map(color_rygr),
             use_container_width=True,
         )
 
@@ -1131,7 +1131,7 @@ def page_perhitungan():
 
         df_ftb = vikor.get_f_terbobot_df()
         st.dataframe(
-            df_ftb.style.format("{:.4f}").applymap(color_rygr),
+            df_ftb.style.format("{:.4f}").map(color_rygr),
             use_container_width=True,
         )
 
