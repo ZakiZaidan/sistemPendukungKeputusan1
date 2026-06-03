@@ -34,7 +34,14 @@ st.markdown("""
 <style>
 /* ── Google Font + Material Icons ── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined');
+
+/* Force Material Icons to render as icons, not text */
+.material-icons, .material-icons-outlined {
+    font-family: 'Material Icons', 'Material Icons Outlined' !important;
+    font-style: normal !important;
+    display: inline-block !important;
+}
 
 /* ── Root Variables ── */
 :root {
@@ -343,19 +350,54 @@ hr {
     border-top: 1px solid var(--card-border);
     margin-top: 48px;
 }
-/* ── Hide Streamlit default UI clutter ── */
+/* ── Hide Streamlit UI clutter ── */
+
+/* Sembunyikan header & toolbar Streamlit */
 [data-testid="stToolbar"] { display: none !important; }
 [data-testid="stDecoration"] { display: none !important; }
 [data-testid="stStatusWidget"] { display: none !important; }
-header[data-testid="stHeader"] { background: transparent !important; }
+header[data-testid="stHeader"] { display: none !important; }
+
+/* Sembunyikan tombol collapse sidebar (penyebab "keyboard_double") */
+[data-testid="stSidebarCollapsedControl"] { display: none !important; }
+button[data-testid="collapsedControl"] { display: none !important; }
+[data-testid="collapsedControl"] { display: none !important; }
+
+/* Sembunyikan ikon arrow teks di expander (penyebab "d_arr...") */
+[data-testid="stExpander"] details summary svg { display: none !important; }
+[data-testid="stExpander"] details summary > div:first-child > svg { display: none !important; }
+[data-testid="stExpander"] summary > div:first-child { display: none !important; }
+
+/* Pastikan expander summary tidak overflow */
+[data-testid="stExpander"] details summary {
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+}
+[data-testid="stExpander"] details summary p,
+[data-testid="stExpander"] details summary span {
+    white-space: normal !important;
+    overflow: visible !important;
+}
+
+/* Tambah padding atas agar konten tidak tertimpa header */
+.main .block-container {
+    padding-top: 1rem !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
 
+# Inject Material Icons font as HTML link tag (more reliable than CSS @import)
+st.markdown(
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round">',
+    unsafe_allow_html=True,
+)
 
 # ═══════════════════════════════════════════════════════════════════
 # SESSION STATE INITIALIZATION
 # ═══════════════════════════════════════════════════════════════════
+
 
 def init_session_state():
     """Initialize session state with default data from journal."""
