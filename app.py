@@ -32,8 +32,9 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-/* ── Google Font ── */
+/* ── Google Font + Material Icons ── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 /* ── Root Variables ── */
 :root {
@@ -342,6 +343,12 @@ hr {
     border-top: 1px solid var(--card-border);
     margin-top: 48px;
 }
+/* ── Hide Streamlit default UI clutter ── */
+[data-testid="stToolbar"] { display: none !important; }
+[data-testid="stDecoration"] { display: none !important; }
+[data-testid="stStatusWidget"] { display: none !important; }
+header[data-testid="stHeader"] { background: transparent !important; }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -494,7 +501,23 @@ with st.sidebar:
             st.caption(f"⚠️ {conn_error}")
 
     if is_connected:
-        with st.expander("Simpan Sesi", expanded=False):
+        # ─── Simpan Sesi ───
+        if "show_simpan" not in st.session_state:
+            st.session_state.show_simpan = False
+        if "show_muat" not in st.session_state:
+            st.session_state.show_muat = False
+
+        col_s, col_m = st.columns(2)
+        with col_s:
+            if st.button("Simpan Sesi", key="toggle_simpan", use_container_width=True):
+                st.session_state.show_simpan = not st.session_state.show_simpan
+                st.session_state.show_muat = False
+        with col_m:
+            if st.button("Muat Sesi", key="toggle_muat", use_container_width=True):
+                st.session_state.show_muat = not st.session_state.show_muat
+                st.session_state.show_simpan = False
+
+        if st.session_state.show_simpan:
             nama_sesi = st.text_input(
                 "Nama sesi",
                 placeholder="cth: Analisis UMKM Jun 2026",
@@ -513,7 +536,6 @@ with st.sidebar:
                     if result["success"]:
                         st.session_state["last_saved_session_id"] = result.get("id")
                         st.success(result["message"])
-                        # Jika sudah ada hasil perhitungan, simpan juga
                         if st.session_state.calculated and st.session_state.vikor_result:
                             vk = st.session_state.vikor_result
                             supadb.save_hasil(
@@ -524,12 +546,13 @@ with st.sidebar:
                                 ri_values={k: float(v) for k, v in zip(vk.alt_keys, vk.ri)},
                                 qi_values={k: float(v) for k, v in zip(vk.alt_keys, vk.qi)},
                             )
+                        st.session_state.show_simpan = False
                     else:
                         st.error(result["message"])
                 else:
-                    st.warning("Masukkan nama sesi terlebih dahulu.")
+                    st.warning("Masukkan nama sesi.")
 
-        with st.expander("Muat Sesi", expanded=False):
+        if st.session_state.show_muat:
             sessions = supadb.load_sessions()
             if sessions:
                 sesi_options = {f"{s['nama']} ({supadb.format_timestamp(s['created_at'])})": s["id"]
@@ -551,12 +574,14 @@ with st.sidebar:
                         st.session_state.v = detail["v"]
                         st.session_state.calculated = False
                         st.session_state.vikor_result = None
+                        st.session_state.show_muat = False
                         st.success(f"Sesi '{detail['nama']}' berhasil dimuat!")
                         st.rerun()
                     else:
                         st.error("Gagal memuat sesi.")
             else:
                 st.caption("Belum ada sesi tersimpan.")
+
 
     st.markdown("""
     <div class="footer" style="margin-top: 24px; border: none; padding: 8px;">
