@@ -1,0 +1,30 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Streamlit secrets (RAHASIA - jangan di-push ke GitHub!)
+.streamlit/secrets.toml
+
+# File sementara
+*.log
+*.tmp
+
+# File Excel hasil generate (opsional, hapus baris ini jika ingin di-push)
+Hasil_VIKOR.xlsx
+
+# PDF dan dokumen lokal
+*.pdf
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docs
+docs/
