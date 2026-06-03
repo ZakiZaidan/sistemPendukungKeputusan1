@@ -1017,7 +1017,14 @@ def page_perhitungan():
     vikor = st.session_state.vikor_result
 
     # ─── Step 1: Matriks Keputusan ───
-    with st.expander("Tahap 1 — Matriks Keputusan (fij)", expanded=True):
+    st.markdown("""
+    <div class="glass-card" style="padding: 14px 20px; margin-bottom: 8px;
+         border-left: 3px solid #3b82f6;">
+        <div style="font-size: 1rem; font-weight: 600; color: #f1f5f9;">
+            Tahap 1 &nbsp;&mdash;&nbsp; Matriks Keputusan (fij)</div>
+    </div>
+    """, unsafe_allow_html=True)
+    with st.container():
         st.markdown("""
         <div class="step-badge">TAHAP 1</div>
         <div class="section-desc">
@@ -1030,7 +1037,14 @@ def page_perhitungan():
         )
 
     # ─── Step 2: f+ dan f- ───
-    with st.expander("Tahap 2 — Nilai Ideal (f+ dan f-)", expanded=True):
+    st.markdown("""
+    <div class="glass-card" style="padding: 14px 20px; margin-bottom: 8px;
+         border-left: 3px solid #3b82f6;">
+        <div style="font-size: 1rem; font-weight: 600; color: #f1f5f9;">
+            Tahap 2 &nbsp;&mdash;&nbsp; Nilai Ideal (f+ dan f-)</div>
+    </div>
+    """, unsafe_allow_html=True)
+    with st.container():
         st.markdown("""
         <div class="step-badge">TAHAP 2</div>
         <div class="section-desc">
@@ -1039,7 +1053,6 @@ def page_perhitungan():
         </div>
         """, unsafe_allow_html=True)
 
-        # Show tipe kriteria
         tipe_data = {f"{k} ({vikor.kriteria[k]['nama']})": vikor.kriteria[k]['tipe'] for k in vikor.krit_keys}
         st.markdown(f"""
         <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
@@ -1053,7 +1066,14 @@ def page_perhitungan():
         )
 
     # ─── Step 3: Normalisasi ───
-    with st.expander("Tahap 3 — Normalisasi (Nij)", expanded=True):
+    st.markdown("""
+    <div class="glass-card" style="padding: 14px 20px; margin-bottom: 8px;
+         border-left: 3px solid #3b82f6;">
+        <div style="font-size: 1rem; font-weight: 600; color: #f1f5f9;">
+            Tahap 3 &nbsp;&mdash;&nbsp; Normalisasi (Nij)</div>
+    </div>
+    """, unsafe_allow_html=True)
+    with st.container():
         st.markdown("""
         <div class="step-badge">TAHAP 3</div>
         <div class="section-desc">
@@ -1070,15 +1090,12 @@ def page_perhitungan():
                 v = float(val)
             except Exception:
                 return ''
-            # clamp 0-1
             v = max(0.0, min(1.0, v))
             if v <= 0.5:
-                # hijau -> kuning
                 r = int(v * 2 * 255)
                 g = 200
                 b = 80
             else:
-                # kuning -> merah
                 r = 220
                 g = int((1 - (v - 0.5) * 2) * 200)
                 b = 60
@@ -1090,7 +1107,14 @@ def page_perhitungan():
         )
 
     # ─── Step 4: F*ij Terbobot ───
-    with st.expander("Tahap 4 — Normalisasi Terbobot (F*ij)", expanded=True):
+    st.markdown("""
+    <div class="glass-card" style="padding: 14px 20px; margin-bottom: 8px;
+         border-left: 3px solid #3b82f6;">
+        <div style="font-size: 1rem; font-weight: 600; color: #f1f5f9;">
+            Tahap 4 &nbsp;&mdash;&nbsp; Normalisasi Terbobot (F*ij)</div>
+    </div>
+    """, unsafe_allow_html=True)
+    with st.container():
         st.markdown("""
         <div class="step-badge">TAHAP 4</div>
         <div class="section-desc">
@@ -1098,7 +1122,6 @@ def page_perhitungan():
         </div>
         """, unsafe_allow_html=True)
 
-        # Show weights
         bobot_str = " | ".join([f"{k}: {vikor.kriteria[k]['bobot']:.2f}" for k in vikor.krit_keys])
         st.markdown(f"""
         <div class="info-box">
@@ -1113,11 +1136,18 @@ def page_perhitungan():
         )
 
     # ─── Step 5: Si dan Ri ───
-    with st.expander("Tahap 5 — Utility Measure (Si) & Regret Measure (Ri)", expanded=True):
+    st.markdown("""
+    <div class="glass-card" style="padding: 14px 20px; margin-bottom: 8px;
+         border-left: 3px solid #3b82f6;">
+        <div style="font-size: 1rem; font-weight: 600; color: #f1f5f9;">
+            Tahap 5 &nbsp;&mdash;&nbsp; Utility Measure (Si) &amp; Regret Measure (Ri)</div>
+    </div>
+    """, unsafe_allow_html=True)
+    with st.container():
         st.markdown("""
         <div class="step-badge">TAHAP 5</div>
         <div class="section-desc">
-            <strong style="color: #6C63FF;">Si = ∑F*ij</strong> (total penyimpangan) &nbsp;&nbsp;|&nbsp;&nbsp;
+            <strong style="color: #6C63FF;">Si = &sum;F*ij</strong> (total penyimpangan) &nbsp;&nbsp;|&nbsp;&nbsp;
             <strong style="color: #FF6584;">Ri = MAX(F*ij)</strong> (penyimpangan terburuk)
         </div>
         """, unsafe_allow_html=True)
@@ -1128,7 +1158,6 @@ def page_perhitungan():
             use_container_width=True,
         )
 
-        # S- S+ R- R+
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             st.markdown(f"""
@@ -1162,7 +1191,14 @@ def page_perhitungan():
             """, unsafe_allow_html=True)
 
     # ─── Step 6: Qi ───
-    with st.expander("Tahap 6 — Indeks VIKOR (Qi)", expanded=True):
+    st.markdown(f"""
+    <div class="glass-card" style="padding: 14px 20px; margin-bottom: 8px;
+         border-left: 3px solid #3b82f6;">
+        <div style="font-size: 1rem; font-weight: 600; color: #f1f5f9;">
+            Tahap 6 &nbsp;&mdash;&nbsp; Indeks VIKOR (Qi)</div>
+    </div>
+    """, unsafe_allow_html=True)
+    with st.container():
         st.markdown(f"""
         <div class="step-badge">TAHAP 6</div>
         <div class="section-desc">
@@ -1178,7 +1214,14 @@ def page_perhitungan():
         )
 
     # ─── Step 7: Validasi ───
-    with st.expander("Tahap 7 — Validasi Solusi Kompromi", expanded=True):
+    st.markdown("""
+    <div class="glass-card" style="padding: 14px 20px; margin-bottom: 8px;
+         border-left: 3px solid #3b82f6;">
+        <div style="font-size: 1rem; font-weight: 600; color: #f1f5f9;">
+            Tahap 7 &nbsp;&mdash;&nbsp; Validasi Solusi Kompromi</div>
+    </div>
+    """, unsafe_allow_html=True)
+    with st.container():
         st.markdown("""
         <div class="step-badge">TAHAP 7</div>
         """, unsafe_allow_html=True)
