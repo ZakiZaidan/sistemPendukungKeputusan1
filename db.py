@@ -14,23 +14,39 @@ import json
 # ═══════════════════════════════════════════════════════════════════
 
 @st.cache_resource
-def init_supabase() -> Client | None:
+def init_supabase():
     """
     Inisialisasi Supabase client menggunakan credentials dari
     st.secrets (Streamlit Cloud) atau secrets.toml (lokal).
-    Mengembalikan None jika credentials tidak tersedia.
+    Mengembalikan (client, error_msg) tuple.
     """
     try:
         url = st.secrets["supabase"]["url"]
         key = st.secrets["supabase"]["key"]
-        return create_client(url, key)
-    except Exception:
-        return None
+        client = create_client(url, key)
+        return client, None
+    except KeyError as e:
+        return None, f"Secrets tidak ditemukan: {e}. Pastikan [supabase] url dan key sudah diisi di Streamlit Cloud Secrets."
+    except Exception as e:
+        return None, f"Gagal konek Supabase: {type(e).__name__}: {e}"
 
 
-def get_client() -> Client | None:
+def get_client():
     """Helper untuk mendapatkan Supabase client."""
-    return init_supabase()
+    client, _ = init_supabase()
+    return client
+
+
+def get_connection_error() -> str | None:
+    """Ambil pesan error koneksi jika ada."""
+    _, error = init_supabase()
+    return error
+
+
+def is_connected() -> bool:
+    """Cek apakah koneksi Supabase tersedia."""
+    client, _ = init_supabase()
+    return client is not None
 
 
 # ═══════════════════════════════════════════════════════════════════

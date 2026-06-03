@@ -467,6 +467,7 @@ with st.sidebar:
 
     # ─── Supabase Panel ───
     is_connected = supadb.is_connected()
+    conn_error = supadb.get_connection_error()
     if is_connected:
         st.markdown("""
         <div style="display:flex; align-items:center; gap:6px;
@@ -483,12 +484,14 @@ with st.sidebar:
         <div style="display:flex; align-items:center; gap:6px;
              padding: 6px 10px; background: rgba(239,68,68,0.1);
              border: 1px solid rgba(239,68,68,0.2); border-radius: 8px;
-             margin-bottom: 10px;">
+             margin-bottom: 6px;">
             <div style="width:8px; height:8px; background:#f87171;
                  border-radius:50%; flex-shrink:0;"></div>
             <span style="font-size:0.78rem; color:#f87171;">Offline (tanpa DB)</span>
         </div>
         """, unsafe_allow_html=True)
+        if conn_error:
+            st.caption(f"⚠️ {conn_error}")
 
     if is_connected:
         with st.expander("Simpan Sesi", expanded=False):
