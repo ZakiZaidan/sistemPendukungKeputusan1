@@ -354,42 +354,51 @@ hr {
 [data-testid="stDecoration"] { display: none !important; }
 [data-testid="stStatusWidget"] { display: none !important; }
 
-/* ── Fix teks Material Icons di tombol sidebar ── */
-/* Sembunyikan icon text dengan set font-size:0 pada TOMBOL (diwariskan ke semua child) */
-/* lalu override font-size di ::after agar icon CSS-nya tetap muncul */
+/* ─── Sembunyikan teks Material Icons via selector yg tepat dari DevTools ─── */
 
-[data-testid="stSidebarHeader"] button,
-[data-testid="stSidebarCollapsedControl"] button {
-    font-size: 0 !important;         /* warisan ke span → teks jadi tidak terlihat */
-    color: transparent !important;
+/* stIconMaterial adalah span yang memuat teks ikon mentah (keyboard_double_arrow_right dll) */
+[data-testid="stIconMaterial"] {
+    font-size: 0 !important;
+    line-height: 0 !important;
+    overflow: hidden !important;
+    display: inline-block !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Tombol buka sidebar (stExpandSidebarButton) — muncul saat sidebar TERTUTUP */
+[data-testid="stExpandSidebarButton"] {
+    position: relative !important;
+    min-width: 2.5rem !important;
+    min-height: 2.5rem !important;
+    background: rgba(148,163,184,0.08) !important;
+    border-radius: 8px !important;
+}
+[data-testid="stExpandSidebarButton"]::after {
+    content: "▶";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15px;
+    color: rgba(250, 250, 250, 0.6);
+    pointer-events: none;
+}
+
+/* Tombol tutup sidebar — muncul di stSidebarHeader saat sidebar TERBUKA (✕ sudah OK) */
+[data-testid="stSidebarHeader"] button {
     position: relative !important;
     min-width: 2rem !important;
     min-height: 2rem !important;
-    overflow: hidden !important;     /* backup: potong teks yang meluap */
 }
-
-/* Tombol tutup sidebar (saat sidebar TERBUKA) */
 [data-testid="stSidebarHeader"] button::after {
     content: "✕";
-    font-size: 14px !important;
-    color: #94a3b8 !important;
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: rgba(250, 250, 250, 0.6);
     pointer-events: none;
 }
-
-/* Tombol buka sidebar (saat sidebar TERTUTUP) */
-[data-testid="stSidebarCollapsedControl"] button::after {
-    content: "▶";
-    font-size: 14px !important;
-    color: #94a3b8 !important;
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
 
 
 
