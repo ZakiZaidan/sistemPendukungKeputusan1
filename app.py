@@ -350,57 +350,9 @@ hr {
     border-top: 1px solid var(--card-border);
     margin-top: 48px;
 }
-/* ── Hide Streamlit UI clutter ── */
-
-/* Perbaiki teks Material Icons yang muncul (karena font tidak terload) */
-/* Teknik: visibility:hidden menyembunyikan teks TAPI menjaga ukuran & click area tombol */
-
-/* Tombol buka sidebar (muncul di pojok kiri atas saat sidebar tertutup) */
-[data-testid="stSidebarCollapsedControl"] button {
-    position: relative !important;
-    min-width: 2.5rem !important;
-    min-height: 2.5rem !important;
-    border-radius: 8px !important;
-    background: rgba(148, 163, 184, 0.1) !important;
-}
-[data-testid="stSidebarCollapsedControl"] button > * {
-    visibility: hidden !important;
-}
-[data-testid="stSidebarCollapsedControl"] button::after {
-    content: "▶";
-    visibility: visible !important;
-    color: #94a3b8;
-    font-size: 16px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
-/* Tombol tutup sidebar (muncul di dalam sidebar saat terbuka) */
-section[data-testid="stSidebar"] header button {
-    position: relative !important;
-}
-section[data-testid="stSidebar"] header button > * {
-    visibility: hidden !important;
-}
-section[data-testid="stSidebar"] header button::after {
-    content: "✕";
-    visibility: visible !important;
-    color: #94a3b8;
-    font-size: 14px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
-/* Toolbar bawaan Streamlit (bukan header/toggle) */
+/* Hanya sembunyikan dekorasi yang tidak perlu */
 [data-testid="stDecoration"] { display: none !important; }
 [data-testid="stStatusWidget"] { display: none !important; }
-
 
 
 /* Sembunyikan ikon arrow teks di expander (penyebab "d_arr...") */
