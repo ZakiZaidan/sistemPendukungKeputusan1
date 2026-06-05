@@ -356,7 +356,7 @@ hr {
 [data-testid="stToolbar"] { display: none !important; }
 [data-testid="stDecoration"] { display: none !important; }
 [data-testid="stStatusWidget"] { display: none !important; }
-header[data-testid="stHeader"] { display: none !important; }
+header[data-testid="stHeader"] { background: transparent !important; }
 
 
 /* Sembunyikan ikon arrow teks di expander (penyebab "d_arr...") */
