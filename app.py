@@ -352,8 +352,59 @@ hr {
 }
 /* ── Hide Streamlit UI clutter ── */
 
-/* Sembunyikan header & toolbar Streamlit */
-/* Header & Toolbar dibiarkan default agar fungsi toggle sidebar tidak terganggu */
+/* Sembunyikan teks ikon Material Icons dan ganti dengan panah CSS */
+
+/* Tombol toggle sidebar (collapsed state - pojok kiri atas) */
+[data-testid="stSidebarCollapsedControl"] button span,
+[data-testid="collapsedControl"] span,
+button[kind="headerNoPadding"] span {
+    font-size: 0 !important;
+    color: transparent !important;
+}
+[data-testid="stSidebarCollapsedControl"] button,
+[data-testid="collapsedControl"],
+button[kind="headerNoPadding"] {
+    font-size: 0 !important;
+    position: relative;
+    min-width: 32px;
+    min-height: 32px;
+}
+[data-testid="stSidebarCollapsedControl"] button::after,
+[data-testid="collapsedControl"]::after,
+button[kind="headerNoPadding"]::after {
+    content: "☰";
+    font-size: 20px !important;
+    color: #94a3b8 !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Tombol close sidebar (di dalam sidebar terbuka) */
+[data-testid="stSidebar"] button[aria-label="Close sidebar"] span,
+section[data-testid="stSidebar"] [data-testid="stSidebarNavCollapseIcon"] span,
+section[data-testid="stSidebar"] button[kind="headerNoPadding"] span {
+    font-size: 0 !important;
+    color: transparent !important;
+}
+section[data-testid="stSidebar"] button[kind="headerNoPadding"]::after {
+    content: "✕";
+    font-size: 16px !important;
+    color: #94a3b8 !important;
+}
+
+/* Sembunyikan teks ikon di semua elemen Streamlit yang pakai Material Icons */
+.material-icons, .e1nzilvr5 {
+    font-size: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Toolbar: sembunyikan tapi jaga header tetap ada */
+[data-testid="stToolbar"] { visibility: hidden !important; }
+[data-testid="stDecoration"] { display: none !important; }
+[data-testid="stStatusWidget"] { display: none !important; }
 
 
 /* Sembunyikan ikon arrow teks di expander (penyebab "d_arr...") */
