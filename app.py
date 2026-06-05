@@ -354,46 +354,42 @@ hr {
 [data-testid="stDecoration"] { display: none !important; }
 [data-testid="stStatusWidget"] { display: none !important; }
 
-/* Sembunyikan teks mentah ikon Material Icons di tombol sidebar */
-[data-testid="stSidebarHeader"] button span,
-[data-testid="stSidebarCollapsedControl"] button span {
-    font-size: 0 !important;
-    opacity: 0 !important;
-    line-height: 0 !important;
-}
+/* ── Fix teks Material Icons di tombol sidebar ── */
+/* Sembunyikan icon text dengan set font-size:0 pada TOMBOL (diwariskan ke semua child) */
+/* lalu override font-size di ::after agar icon CSS-nya tetap muncul */
 
-/* Properti dasar tombol */
 [data-testid="stSidebarHeader"] button,
 [data-testid="stSidebarCollapsedControl"] button {
+    font-size: 0 !important;         /* warisan ke span → teks jadi tidak terlihat */
+    color: transparent !important;
     position: relative !important;
     min-width: 2rem !important;
     min-height: 2rem !important;
+    overflow: hidden !important;     /* backup: potong teks yang meluap */
 }
 
-/* Saat sidebar TERBUKA (aria-expanded=true) → tampilkan ✕ */
-section[data-testid="stSidebar"][aria-expanded="true"]
-    [data-testid="stSidebarHeader"] button::after {
+/* Tombol tutup sidebar (saat sidebar TERBUKA) */
+[data-testid="stSidebarHeader"] button::after {
     content: "✕";
+    font-size: 14px !important;
+    color: #94a3b8 !important;
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 14px;
-    color: #94a3b8;
     pointer-events: none;
 }
 
-/* Saat sidebar TERTUTUP (aria-expanded=false) → tampilkan ▶ */
-section[data-testid="stSidebar"][aria-expanded="false"]
-    [data-testid="stSidebarHeader"] button::after,
+/* Tombol buka sidebar (saat sidebar TERTUTUP) */
 [data-testid="stSidebarCollapsedControl"] button::after {
     content: "▶";
+    font-size: 14px !important;
+    color: #94a3b8 !important;
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 14px;
-    color: #94a3b8;
     pointer-events: none;
 }
+
 
 
 
