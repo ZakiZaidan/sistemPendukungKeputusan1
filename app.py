@@ -358,10 +358,6 @@ hr {
 [data-testid="stStatusWidget"] { display: none !important; }
 header[data-testid="stHeader"] { display: none !important; }
 
-/* Sembunyikan tombol collapse sidebar (penyebab "keyboard_double") */
-[data-testid="stSidebarCollapsedControl"] { display: none !important; }
-button[data-testid="collapsedControl"] { display: none !important; }
-[data-testid="collapsedControl"] { display: none !important; }
 
 /* Sembunyikan ikon arrow teks di expander (penyebab "d_arr...") */
 [data-testid="stExpander"] details summary svg { display: none !important; }
