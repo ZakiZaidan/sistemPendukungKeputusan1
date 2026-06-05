@@ -353,10 +353,7 @@ hr {
 /* ── Hide Streamlit UI clutter ── */
 
 /* Sembunyikan header & toolbar Streamlit */
-[data-testid="stToolbar"] { display: none !important; }
-[data-testid="stDecoration"] { display: none !important; }
-[data-testid="stStatusWidget"] { display: none !important; }
-header[data-testid="stHeader"] { background: transparent !important; }
+/* Header & Toolbar dibiarkan default agar fungsi toggle sidebar tidak terganggu */
 
 
 /* Sembunyikan ikon arrow teks di expander (penyebab "d_arr...") */
