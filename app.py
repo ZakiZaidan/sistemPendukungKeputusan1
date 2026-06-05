@@ -355,20 +355,24 @@ hr {
 [data-testid="stStatusWidget"] { display: none !important; }
 
 /* Sembunyikan teks mentah ikon Material Icons di tombol sidebar */
-/* Hanya targetkan <span> di dalam tombol — bukan tombolnya sendiri */
 [data-testid="stSidebarHeader"] button span,
 [data-testid="stSidebarCollapsedControl"] button span {
     font-size: 0 !important;
     opacity: 0 !important;
     line-height: 0 !important;
 }
-/* Ganti dengan simbol CSS murni via ::after */
-[data-testid="stSidebarHeader"] button {
+
+/* Properti dasar tombol */
+[data-testid="stSidebarHeader"] button,
+[data-testid="stSidebarCollapsedControl"] button {
     position: relative !important;
     min-width: 2rem !important;
     min-height: 2rem !important;
 }
-[data-testid="stSidebarHeader"] button::after {
+
+/* Saat sidebar TERBUKA (aria-expanded=true) → tampilkan ✕ */
+section[data-testid="stSidebar"][aria-expanded="true"]
+    [data-testid="stSidebarHeader"] button::after {
     content: "✕";
     position: absolute;
     top: 50%; left: 50%;
@@ -377,11 +381,10 @@ hr {
     color: #94a3b8;
     pointer-events: none;
 }
-[data-testid="stSidebarCollapsedControl"] button {
-    position: relative !important;
-    min-width: 2rem !important;
-    min-height: 2rem !important;
-}
+
+/* Saat sidebar TERTUTUP (aria-expanded=false) → tampilkan ▶ */
+section[data-testid="stSidebar"][aria-expanded="false"]
+    [data-testid="stSidebarHeader"] button::after,
 [data-testid="stSidebarCollapsedControl"] button::after {
     content: "▶";
     position: absolute;
@@ -391,6 +394,7 @@ hr {
     color: #94a3b8;
     pointer-events: none;
 }
+
 
 
 /* Sembunyikan ikon arrow teks di expander (penyebab "d_arr...") */
