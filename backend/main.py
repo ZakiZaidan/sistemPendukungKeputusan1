@@ -202,6 +202,43 @@ def get_defaults():
 
 
 # ═══════════════════════════════════════════════════════════════════
+# HELPER: Convert ranking + validasi to JSON-safe types
+# ═══════════════════════════════════════════════════════════════════
+
+def safe_ranking(vikor) -> dict:
+    """Convert ranking and validasi from a VIKOR instance to JSON-safe dicts."""
+    ranking_safe = [
+        {
+            'rank': int(r['rank']),
+            'kode': r['kode'],
+            'nama': r['nama'],
+            'qi': float(r['qi']),
+            'si': float(r['si']),
+            'ri': float(r['ri']),
+        }
+        for r in vikor.ranking
+    ]
+    val = vikor.validasi
+    validasi_safe = {
+        'a1st': val['a1st'],
+        'a1st_nama': val['a1st_nama'],
+        'q1st': float(val['q1st']),
+        'a2nd': val['a2nd'],
+        'q2nd': float(val['q2nd']),
+        'dq': float(val['dq']),
+        'selisih': float(val['selisih']),
+        'kondisi1': bool(val['kondisi1']),
+        'kondisi1_text': val['kondisi1_text'],
+        'si_rank': int(val['si_rank']),
+        'ri_rank': int(val['ri_rank']),
+        'kondisi2': bool(val['kondisi2']),
+        'kondisi2_text': val['kondisi2_text'],
+        'valid': bool(val['valid']),
+    }
+    return {'ranking': ranking_safe, 'validasi': validasi_safe}
+
+
+# ═══════════════════════════════════════════════════════════════════
 # ENDPOINTS: VIKOR Calculation
 # ═══════════════════════════════════════════════════════════════════
 
@@ -237,10 +274,7 @@ def sensitivity_analysis(data: SensitivityInput):
         for v_val in data.v_values:
             vikor_temp = VIKOR(data.alternatif, data.kriteria, data.matriks, v=v_val)
             vikor_temp.calculate()
-            results[str(v_val)] = {
-                "ranking": vikor_temp.ranking,
-                "validasi": vikor_temp.validasi,
-            }
+            results[str(v_val)] = safe_ranking(vikor_temp)
 
         return {
             "results": results,
