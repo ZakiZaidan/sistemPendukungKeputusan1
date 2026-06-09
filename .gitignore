@@ -12,11 +12,19 @@ __pycache__/
 # Streamlit secrets (RAHASIA - jangan di-push ke GitHub!)
 .streamlit/secrets.toml
 
+# Backend env
+backend/.env
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+
 # File sementara
 *.log
 *.tmp
 
-# File Excel hasil generate (opsional, hapus baris ini jika ingin di-push)
+# File Excel hasil generate
 Hasil_VIKOR.xlsx
 
 # PDF dan dokumen lokal
