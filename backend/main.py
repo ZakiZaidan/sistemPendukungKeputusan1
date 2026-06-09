@@ -126,6 +126,38 @@ def vikor_to_dict(vikor: VIKOR) -> dict:
             "ri": float(vikor.ri[i]),
         })
 
+    # Convert ranking to JSON-safe types (numpy.float64 -> float)
+    ranking_safe = [
+        {
+            'rank': int(r['rank']),
+            'kode': r['kode'],
+            'nama': r['nama'],
+            'qi': float(r['qi']),
+            'si': float(r['si']),
+            'ri': float(r['ri']),
+        }
+        for r in vikor.ranking
+    ]
+
+    # Convert validasi to JSON-safe types
+    val = vikor.validasi
+    validasi_safe = {
+        'a1st': val['a1st'],
+        'a1st_nama': val['a1st_nama'],
+        'q1st': float(val['q1st']),
+        'a2nd': val['a2nd'],
+        'q2nd': float(val['q2nd']),
+        'dq': float(val['dq']),
+        'selisih': float(val['selisih']),
+        'kondisi1': bool(val['kondisi1']),
+        'kondisi1_text': val['kondisi1_text'],
+        'si_rank': int(val['si_rank']),
+        'ri_rank': int(val['ri_rank']),
+        'kondisi2': bool(val['kondisi2']),
+        'kondisi2_text': val['kondisi2_text'],
+        'valid': bool(val['valid']),
+    }
+
     return {
         "matriks": matriks_data,
         "kriteria": {k: v for k, v in vikor.kriteria.items()},
@@ -139,9 +171,9 @@ def vikor_to_dict(vikor: VIKOR) -> dict:
         "si_max": float(vikor.si.max()),
         "ri_min": float(vikor.ri.min()),
         "ri_max": float(vikor.ri.max()),
-        "ranking": vikor.ranking,
-        "validasi": vikor.validasi,
-        "v": vikor.v,
+        "ranking": ranking_safe,
+        "validasi": validasi_safe,
+        "v": float(vikor.v),
     }
 
 
