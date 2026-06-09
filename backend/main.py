@@ -7,8 +7,6 @@ import sys
 import os
 import io
 
-# Add parent directory to path so we can import vikor.py
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
