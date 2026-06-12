@@ -3,8 +3,8 @@ import Sidebar from '@/components/Sidebar';
 import Toast from '@/components/Toast';
 
 export const metadata = {
-  title: 'SPK VIKOR — Strategi Pemasaran UMKM',
-  description: 'Sistem Pendukung Keputusan dengan Metode VIKOR untuk Penentuan Strategi Pemasaran UMKM Nasi Bakar Mak Yuni, Kota Metro',
+  title: 'SPK VIKOR — Strategi Pemasaran',
+  description: 'Sistem Pendukung Keputusan dengan Metode VIKOR untuk Penentuan Strategi Pemasaran - Kelompok 1 SPK',
 };
 
 export default function RootLayout({ children }) {

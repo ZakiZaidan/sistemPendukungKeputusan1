@@ -64,7 +64,7 @@ export default function BerandaPage() {
             Penentuan Strategi Pemasaran UMKM menggunakan pendekatan kompromi multi-kriteria
           </p>
           <p className="home-hero-case">
-            Studi Kasus: UMKM Nasi Bakar Mak Yuni, Kota Metro
+            Studi Kasus: Kelompok 1 SPK
           </p>
         </div>
       </div>
@@ -100,10 +100,9 @@ export default function BerandaPage() {
 
         <div className="glass-card">
           <div className="card-tag card-tag--green">Studi Kasus</div>
-          <h2 className="card-heading">UMKM Nasi Bakar Mak Yuni</h2>
+          <h2 className="card-heading">Kelompok 1 SPK</h2>
           <p className="card-body">
-            Sistem ini membantu <strong>UMKM Nasi Bakar Mak Yuni</strong> di Kota Metro
-            menentukan <strong>strategi pemasaran terbaik</strong> dari 8 alternatif
+            Sistem ini membantu <strong>Kelompok 1 SPK</strong> menentukan <strong>strategi pemasaran terbaik</strong> dari 8 alternatif
             berdasarkan 7 kriteria penilaian.
           </p>
           <div className="card-criteria-list">
@@ -139,7 +138,7 @@ export default function BerandaPage() {
       {/* ── Footer ── */}
       <div className="footer">
         <div>Sistem Pendukung Keputusan — Metode VIKOR</div>
-        <div>Penentuan Strategi Pemasaran UMKM Nasi Bakar Mak Yuni, Kota Metro</div>
+        <div>Penentuan Strategi Pemasaran - Kelompok 1 SPK</div>
       </div>
 
       <GuidedTour page="/" />

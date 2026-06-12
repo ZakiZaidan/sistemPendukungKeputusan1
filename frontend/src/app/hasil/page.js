@@ -208,7 +208,7 @@ export default function HasilPage() {
 
       <div className="footer">
         <div>Sistem Pendukung Keputusan — Metode VIKOR</div>
-        <div>Penentuan Strategi Pemasaran UMKM Nasi Bakar Mak Yuni, Kota Metro</div>
+        <div>Penentuan Strategi Pemasaran - Kelompok 1 SPK</div>
       </div>
 
       <GuidedTour page="/hasil" />
